@@ -38,10 +38,11 @@ _cached_certs: Dict[str, CachedCert] = {}
 _pattern = re.compile(r"Negotiate\s*([^,]*)", re.I)
 
 
-@dataclass(slots=True, frozen=True)
+@dataclass(frozen=True)
 class CachedCert:
     cert: x509.Certificate
     application_data: bytes
+    __slots__ = ('cert', 'application_data')
 
     @property
     def expired(self) -> bool:
